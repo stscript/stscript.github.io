@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style type="text/css">
+  #sidebar{
+  	position: fixed;
+  	width: 20%;
+  	right: 0;
+  }
+  .display{
+  	background: #8099AC;
+  	margin:auto;
+  }
+  .editer{
+  	position: fixed;
+  	width: 100%;
+  	margin:auto;
+  	bottom: 0;
+  }
+  .layer {
+	  position: absolute;
+	  top: 1em;
+	  left: 1em;
+	}
+	.btnGroup{
+		position: absolute;
+		top: 1em;
+		right: 1em;
+	}
+	.btnGroup button{
+		margin-bottom: 1em;
+	}
+</style>
+</head>
+<body class="container-fluid">
+<div class="row">
+<form class="layer">
+  <input type="radio" name="reference" id="ref-annulus">
+  <label for="ref-annulus">layer0</label><br>
+  <input type="radio" name="reference" id="ref-planet" checked>
+  <label for="ref-planet">layer1</label><br>
+  <input type="radio" name="reference" id="ref-sun">
+  <label for="ref-sun">layer2</label>
+</form>
+<form class="btnGroup">
+	<button class="btn btn-info">生成固件</button><br>
+	<button class="btn btn-info">添加新层</button><br>
+	<button class="btn btn-info">删除该层</button><br>
+	<button class="btn btn-info">保存该层</button>
+
+</form>
+	<div class="display"></div>
+	<div class="editer"></div>
+	</div>
+<div id="sidebar">
+	<ul>	
+	</ul>
+</div>
+  <script>
+    var keyData = [
+    {x:0,y:0,width:50,height:50,text:['~','`']},
+    {x:60,y:0,width:50,height:50,text:['!','1']},
+    {x:120,y:0,width:50,height:50,text:['@','2']},
+    {x:180,y:0,width:50,height:50,text:['#','3']},
+    {x:240,y:0,width:50,height:50,text:['$','4']},
+    {x:300,y:0,width:50,height:50,text:['%','5']},
+    {x:360,y:0,width:50,height:50,text:['^','6']},
+    {x:420,y:0,width:50,height:50,text:['&','7']},
+    {x:480,y:0,width:50,height:50,text:['*','8']},
+    {x:540,y:0,width:50,height:50,text:['(','9']},
+    {x:600,y:0,width:50,height:50,text:[')','0']},
+    {x:660,y:0,width:50,height:50,text:['-','_']},
+    {x:720,y:0,width:50,height:50,text:['+','=']},
+    {x:780,y:0,width:80,height:50,text:'delete'},
+
+	{x:0,y:60,width:80,height:50,text:'tab'},    
+    {x:90,y:60,width:50,height:50,text:'Q'},
+    {x:150,y:60,width:50,height:50,text:'W'},
+    {x:210,y:60,width:50,height:50,text:'E'},
+    {x:270,y:60,width:50,height:50,text:'R'},
+    {x:330,y:60,width:50,height:50,text:'T'},
+    {x:390,y:60,width:50,height:50,text:'Y'},
+    {x:450,y:60,width:50,height:50,text:'U'},
+    {x:510,y:60,width:50,height:50,text:'I'},
+    {x:570,y:60,width:50,height:50,text:'O'},
+    {x:630,y:60,width:50,height:50,text:'P'},
+    {x:690,y:60,width:50,height:50,text:['{','[']},
+	{x:750,y:60,width:50,height:50,text:['}',"]"]},
+	{x:810,y:60,width:50,height:50,text:['|',"\\"]},
+
+	{x:0,y:120,width:100,height:50,text:'caps lock'},
+    {x:110,y:120,width:50,height:50,text:'A'},
+    {x:170,y:120,width:50,height:50,text:'S'},
+    {x:230,y:120,width:50,height:50,text:'D'},
+    {x:290,y:120,width:50,height:50,text:'F'},
+    {x:350,y:120,width:50,height:50,text:'G'},
+    {x:410,y:120,width:50,height:50,text:'H'},
+    {x:470,y:120,width:50,height:50,text:'J'},
+    {x:530,y:120,width:50,height:50,text:'K'},
+    {x:590,y:120,width:50,height:50,text:'L'},
+    {x:650,y:120,width:50,height:50,text:[':',';']},
+	{x:710,y:120,width:50,height:50,text:['"',"'"]},
+    {x:770,y:120,width:90,height:50,text:'Enter'},
+
+    {x:0,y:180,width:125,height:50,text:'shift'},
+    {x:135,y:180,width:50,height:50,text:'Z'},
+    {x:195,y:180,width:50,height:50,text:'X'},
+    {x:255,y:180,width:50,height:50,text:'C'},
+    {x:315,y:180,width:50,height:50,text:'V'},
+	{x:375,y:180,width:50,height:50,text:'B'},
+    {x:435,y:180,width:50,height:50,text:'N'},
+    {x:495,y:180,width:50,height:50,text:'M'},
+    {x:555,y:180,width:50,height:50,text:['<',',']},
+    {x:615,y:180,width:50,height:50,text:['>','.']},
+    {x:675,y:180,width:50,height:50,text:['?','/']},
+    {x:735,y:180,width:125,height:50,text:'shift'},
+
+    {x:0,y:240,width:90,height:50,text:'Ctrl'},
+    {x:100,y:240,width:70,height:50,text:'Win'},
+    {x:180,y:240,width:70,height:50,text:'Alt'},
+    {x:260,y:240,width:280,height:50,text:''},
+    {x:550,y:240,width:70,height:50,text:'Alt'},
+	{x:630,y:240,width:70,height:50,text:'Win'},
+	{x:710,y:240,width:50,height:50,text:'^^'},
+    {x:770,y:240,width:90,height:50,text:'Ctrl'},
+   	];
+   	var keyDataEdit = JSON.parse(JSON.stringify(keyData));
+    var margin = {top: 50, right: 10, bottom: 50, left: 10},
+      width = 880 - margin.left - margin.right,
+      height = 480 - margin.top - margin.bottom;
+ 	var currentKey = {};
+    var svg = d3.select('.display').append('svg')
+      .attr('width',width+margin.left+margin.right)
+      .attr('height',height+margin.top+margin.bottom)
+      .append('g')
+     .attr('transform','translate('+margin.left+','+margin.top+')');
+    var keys = svg.selectAll('g')
+      .data(keyData)
+      .enter().append('g')
+      .attr('transform',function(d){
+        return "translate("+d.x+","+d.y+")";
+      }) 
+      .on('mouseover',function(d,i){
+      	if(!currentKey.isEditing){
+      		d3.select(this).select('rect')
+          	.attr('stroke','blue')
+          	.attr('stroke-width',4)
+
+      	}
+        })
+      .on('mouseout',function(d,i){
+      	if(!currentKey.isEditing){
+      		d3.select(this).select('rect')
+	          .attr('stroke-width',1)
+	          .attr('stroke','black')
+      	}
+      })
+      .on('click',function(d,i){
+      	if(!currentKey.isEditing){
+      		currentKey.isEditing = true;
+      		currentKey.whichKey = i;
+      		editShow(true);
+      		d3.select(this).select('rect').attr('stroke','red')
+      	}
+      })
+    keys.append('rect')
+    .attr('width',function(d){return d.width})
+    .attr('height',function(d){return d.height})
+    .attr({'rx':5,'ry':5});
+    keys.append('text')
+    .attr({'x':20,'y':25,'fill':'#fff'})
+    .attr('alignment-baseline','middle')
+    .attr('text-anchor','center')
+    .html(function(d){
+    	if(d.text instanceof Array){
+    		d3.select(this).append('tspan')
+    		 .attr('x',0).text(d.text[0]);
+    		d3.select(this).append('tspan')
+    		 .attr('x',0).text(d.text[1]).attr('dy',10);
+    		return '<tspan x="20" dy="-5">'+d.text[0]+'</tspan>'+'<tspan x="20" dy="20">'+d.text[1]+'</tspan>'; 
+    	}
+    	return d.text;
+    });
+
+    var editBoard = d3.select('.editer').append('svg').attr({width:880,height:400}).append('g').attr('transform',"translate(10,10)");
+    editBoard.append('rect').attr({'width':880,'height':450,stroke:'#1C2125',fill:'#F4F4F4','stroke-width':5}).attr('transform',"translate(-10,-10)")
+    var editKeys = editBoard.selectAll('g').data(keyDataEdit).enter().append('g')
+    	.attr('transform',function(d){
+    		return "translate("+d.x+","+d.y+")";
+    	});
+    editKeys.on('click',function(d_e){
+    	editShow(false);
+    	currentKey.isEditing = false;
+    	var editkey = keys.filter(function(d,i){return i == currentKey.whichKey;});
+    	editkey.select('rect')
+    		.attr('stroke-width',1)
+	        .attr('stroke','black')
+	    editkey.select('text').html(function(){
+	    	if(d_e.text instanceof Array){
+	    		d3.select(this).append('tspan')
+	    		 .attr('x',0).text(d_e.text[0]);
+	    		d3.select(this).append('tspan')
+	    		 .attr('x',0).text(d_e.text[1]).attr('dy',10);
+	    		return '<tspan x="20" dy="-5">'+d_e.text[0]+'</tspan>'+'<tspan x="20" dy="20">'+d_e.text[1]+'</tspan>'; 
+	    	}
+	    	return d_e.text;
+	    })
+	    editkey.datum().text = d_e.text;
+	    console.log(d_e);
+    })
+    editKeys.append('rect').attr('width',function(d){return d.width}).attr('height',function(d){return d.height}).attr({'rx':5,'ry':5});
+    editKeys.append('text')
+    .attr({'x':20,'y':25,'fill':'#fff'})
+    .attr('alignment-baseline','middle')
+    .attr('text-anchor','center')
+    .html(function(d){
+    	if(d.text instanceof Array){
+    		d3.select(this).append('tspan')
+    		 .attr('x',0).text(d.text[0]);
+    		d3.select(this).append('tspan')
+    		 .attr('x',0).text(d.text[1]).attr('dy',10);
+    		return '<tspan x="20" dy="-5">'+d.text[0]+'</tspan>'+'<tspan x="20" dy="20">'+d.text[1]+'</tspan>'; 
+    	}
+    	return d.text
+    });
+    var editShow = function(b){
+    	if(b){
+    		editBoard.transition()
+      		.attr('transform',"translate(10,10)")
+      		.duration(1000);
+    	}else{
+    		var h = d3.select('.editer>svg').attr('height');
+    		editBoard.transition()
+      		.attr('transform',"translate(10,"+h+")")
+      		.duration(1000);
+    	}
+    }
+    editBoard.attr('transform',function(){var h = d3.select('.editer>svg').attr('height');return "translate(10,"+h+")"})
+    d3.selectAll('svg').style('margin-left',(window.innerWidth - 880)/2);
+    window.onresize = function(){
+    	d3.selectAll('svg').style('margin-left',(window.innerWidth - 880)/2);
+    }
+  </script>
+</body>
+</html>
