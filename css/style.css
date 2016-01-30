@@ -13,7 +13,7 @@
 		border-width: 1px;
 		border-color: #6B6B6B;
 		padding: 5px;
-		word-break: break-all;
+		word-break: normal;
 		margin: 2px 1px 2px 1px;
 		text-align: center;
 	}
@@ -62,3 +62,6 @@ body{
 		margin: 5px 0px 5px 0px;
 	}
 
+.product p{
+	text-align: center;
+}
