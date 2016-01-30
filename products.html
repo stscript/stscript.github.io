@@ -1,48 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ALLWELL</title>
-	<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-<style type="text/css">
-	.product{
-		height: 220px;
-		border: solid;
-		border-radius: 5px;
-		border-width: 1px;
-		border-color: #6B6B6B;
-		padding: 5px;
-		word-break: break-all;
-		margin: 5px 0px 5px 0px;
-	}
-	body{
-		margin: 70px 15% 0px 15%;
-	}
-	.littleimg{
-		width: 100%;
-		height: 150px;
-	}
-	/* Sidebar navigation */
-.nav-sidebar {
-  margin-bottom: 20px;
-}
-.nav-sidebar > li > a {
-  padding-left: 20px;
-}
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
-  color: #fff;
-  background-color: #585858;
-}
-
-</style>
+	<title>
+	AllWell-Products
+	</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="webtop_top_lan">
@@ -57,13 +23,13 @@
 	   <div class="webtop_top_lan_h">
 	     <span class="webtop_top_lan_l"><a href="index.asp" class="white2"><img src="img/language/w-en.gif"> English</a></span>
 		 <span class="webtop_top_lan_l"><a href="http://translate.google.com.hk/translate?hl=en&amp;sl=en&amp;tl=de&amp;u=http%3A%2F%2Fwww.allyes-metal.com%2F" class="white2" target="_blank"><img src="img/language/w-german.jpg"> German</a></span>
-	   </div>	   	   
+	   </div>  	   
 </div>
 <header>
-<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#5f7dbf;">
+<nav class="navbar navbar-inverse " style="background-color:#5f7dbf;">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/" style="color:#eee">ALLWELL</a>
+      <a class="navbar-brand" href="./index.html" style="color:#eee">ALLWELL</a>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-left">
@@ -74,22 +40,25 @@
         <li><a href="./contactus.html" style="color:#fff">Contact us</a></li>      </ul>
     </div>
   </div>
-</nav></header>
-<div style="margin:10px 0 10px 0">
+</nav>
+</header>
+<h2 style="text-align:center">Shenzhen Allwell Industrial Co.,Limited</h2>
+<div style="margin:10px auto 10px auto;text-align:center">
 	<img src="img/flash0.jpg" id="flash0">
 	<img src="img/flash01.jpg" id="flash1">
 	<img src="img/flash02.jpg" id="flash2">
 	<img src="img/flash03.jpg" id="flash3">		
 </div>
+	
 <div class="row">
 	<div class="col-sm-3">
 		<ul class="nav nav-sidebar">
+			<li id='plasticmolds'><a href="javascript:displayProduct('plasticmolds')">plastic molds</a></li>
+			<li id='plasticparts'><a href="javascript:displayProduct('plasticparts')">plastic parts</a></li>
 			<li id='cncparts'><a href="javascript:displayProduct('cncparts')" >cnc parts</a></li>
 			<li id='diecastingparts'><a href="javascript:displayProduct('diecastingparts')">diecasting parts</a></li>
-			<li id='plasticparts'><a href="javascript:displayProduct('plasticparts')">plastic parts</a></li>
-			<li id='plasticmolds'><a href="javascript:displayProduct('plasticmolds')">plastic molds</a></li>
-			<li id='rubberparts'><a href="javascript:displayProduct('rubberparts')">rubber parts</a></li>
 			<li id='stampingparts'><a href="javascript:displayProduct('stampingparts')">stamping parts</a></li>
+			<li id='rubberparts'><a href="javascript:displayProduct('rubberparts')">rubber parts</a></li>
 		</ul>
 	</div>
 	<div class="col-sm-9">
@@ -295,7 +264,7 @@
       </ul>
     </div>
   </div>
-</nav>
+</nav>	
 </footer>
 <script type="text/javascript">
 	function displayFlash(i){
@@ -326,13 +295,15 @@
 		}
 		displayFlash(flashTime);
 	},3000);
-	function displayProduct(p){
+	
+function displayProduct(p){
 		$('.product').hide();
 		$('.active').removeClass('active');
 		$('#'+p).addClass('active');
 		$('.'+p).show();
 	}
-	displayProduct('cncparts');
-</script>
+displayProduct('plasticmolds');
+
+</script>	
 </body>
 </html>
