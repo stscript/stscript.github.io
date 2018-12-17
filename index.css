@@ -167,6 +167,7 @@ body {
 }
 .main .desc {
   font-size: 16px;
+  max-width: 650px;
 }
 .main .card-container {
   display: flex;
@@ -185,6 +186,7 @@ body {
   width: 32%;
   display: flex;
   flex-direction: row;
+  text-decoration: none;
 }
 @media (max-width: 768px) {
   .main .card-container .card {
